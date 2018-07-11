@@ -100,13 +100,13 @@ bool set_text(const std::string& value) {
     return false;
 }
 
-bool get_text(std::string& value) {
+bool get_text(std::string& value, bool any_format) {
   lock l;
   if (!l.locked())
     return false;
 
   format f = text_format();
-  if (!l.is_convertible(f))
+  if (!l.is_convertible(f) && !any_format)
     return false;
 
   size_t len = l.get_data_length(f);
